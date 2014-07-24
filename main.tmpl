@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>HipChat Emoticons</title>
+	<style>
+	body {
+		font-family: verdana;
+	}
+	li {
+		float: left;
+		width: 230px;
+		padding: 10px 0;
+		margin: 0;
+		height: 40px;
+	}
+	li span.image {
+		float: left;
+		display: inline-block;
+		width: 45px;
+	}
+	li span.middle {
+		float: left;
+		display: table-cell;
+		vertical-align: middle;
+		line-height: 30px;
+	}
+	</style>
+</head>
+<body>
+	<h1>HipChat Emoticons</h1>
+	<ul>
+		{{range .}}
+		<li><span class="image"><img src="{{.ImageUrl}}" alt="({{.Shortcut}})" /></span><span class="middle">({{.Shortcut}})</span></li>
+		{{end}}
+	</ul>
+</body>
+</html>
