@@ -23,14 +23,36 @@
 		vertical-align: middle;
 		line-height: 30px;
 	}
+	input {
+		line-height:40px;
+		font-size: 1.5em;
+		width: 350px;
+	}
 	</style>
 </head>
 <body>
 	<h1>HipChat Emoticons</h1>
+	<input id="filter-input" placeholder="Filter..."></input>
 	<ul>
 		{{range .}}
 		<li><span class="image"><img src="{{.ImageUrl}}" alt="({{.Shortcut}})" /></span><span class="middle">({{.Shortcut}})</span></li>
 		{{end}}
 	</ul>
+	<script type="text/javascript">
+	(function(){
+		var filterInput = document.getElementById("filter-input");
+		var emotes = document.getElementsByTagName("li");
+		filterInput.onkeyup = function(evt){
+			var filterText = evt.target.value;
+			for (var i = 0; i < emotes.length; i++){
+				if (emotes[i].innerText.indexOf(filterText) > -1){
+					emotes[i].style.display = "";
+				} else{
+					emotes[i].style.display = "none";
+				}
+			}
+		};
+	})();
+	</script>
 </body>
 </html>
