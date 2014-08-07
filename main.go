@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -29,6 +30,7 @@ type Emoticon struct {
 
 func main() {
 	http.HandleFunc("/", handle)
+	http.HandleFunc("/zeroclipboard/", fileHandle)
 	logger.Println(http.ListenAndServe(":6070", nil))
 }
 
@@ -90,4 +92,9 @@ func getEmoticonsPage(url string) *EmoticonResponse {
 	json.Unmarshal(emoticonData, &emoticons)
 
 	return &emoticons
+}
+
+func fileHandle(writer http.ResponseWriter, request *http.Request) {
+	path := strings.TrimPrefix(request.URL.Path, "/")
+	http.ServeFile(writer, request, path)
 }
