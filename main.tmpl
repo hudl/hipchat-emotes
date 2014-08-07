@@ -1,27 +1,39 @@
 <html>
 <head>
 	<title>HipChat Emoticons</title>
+	<script type="text/javascript" src="static/ZeroClipboard.min.js"></script>
 	<style>
 	body {
 		font-family: verdana;
+		text-align: center;
+	}
+	h1, p
+	{
+		margin-bottom: 5px;
+		font-weight: 500;
+	}
+	ul {
+		padding: 1em;
 	}
 	li {
-		float: left;
-		width: 230px;
-		padding: 10px 0;
-		margin: 0;
-		height: 40px;
+		display: inline-block;
+		min-width: 50px;
+		margin: 20px 10px;
+		text-align: center;
+	}
+	li.pseudo-hover {
+		-ms-transform: scale(1.5,1.5);
+		-webkit-transform: scale(1.5,1.5);
+		transform: scale(1.5,1.5);
 	}
 	li span.image {
-		float: left;
 		display: inline-block;
-		width: 45px;
+		text-align: center;
 	}
-	li span.middle {
-		float: left;
-		display: table-cell;
-		vertical-align: middle;
-		line-height: 30px;
+	li span.shortcut {
+		font-size: 0.5em;
+		display: block;
+		padding-top: 5px;
 	}
 	input {
 		line-height:40px;
@@ -32,10 +44,10 @@
 </head>
 <body>
 	<h1>HipChat Emoticons</h1>
-	<input id="filter-input" placeholder="Filter..."></input>
+	<input id="filter-input" placeholder="Filter..." autofocus></input>
 	<ul>
 		{{range .}}
-		<li><span class="image"><img src="{{.ImageUrl}}" alt="({{.Shortcut}})" /></span><span class="middle">({{.Shortcut}})</span></li>
+		<li data-clipboard-text="({{.Shortcut}})"><span class="image"><img src="{{.ImageUrl}}" alt="({{.Shortcut}})" /></span><span class="shortcut">({{.Shortcut}})</span></li>
 		{{end}}
 	</ul>
 	<script type="text/javascript">
@@ -52,6 +64,13 @@
 				}
 			}
 		};
+		ZeroClipboard.config({
+			swfPath: document.location.origin + "/static/ZeroClipboard.swf",
+			cacheBust: false,
+			hoverClass: "pseudo-hover",
+			forceHandCursor: true,
+		});
+		var client = new ZeroClipboard(emotes);
 	})();
 	</script>
 </body>

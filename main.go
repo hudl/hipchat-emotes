@@ -29,6 +29,8 @@ type Emoticon struct {
 
 func main() {
 	http.HandleFunc("/", handle)
+	staticfs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", staticfs))
 	logger.Println(http.ListenAndServe(":6070", nil))
 }
 
